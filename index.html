@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Clicker</title>
     <style>
         body {
             background-color: black;
@@ -15,7 +16,9 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            -webkit-user-select: none; /* Чтобы нельзя было выделить текст при кликах */
+            /* Запрет выделения текста для удобства кликов */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .balance-label {
@@ -26,7 +29,7 @@
         .balance-count {
             font-size: 64px;
             font-weight: bold;
-            color: #FFD700; /* Золотистый цвет для цифр */
+            color: #FFD700; /* Золотистый цвет */
             margin-bottom: 30px;
         }
 
@@ -34,11 +37,14 @@
             width: 200px;
             height: 200px;
             cursor: pointer;
-            transition: transform 0.1s active;
+            transition: transform 0.05s;
+            /* Чтобы картинка не перетаскивалась мышкой */
+            -webkit-user-drag: none;
         }
 
+        /* Эффект нажатия */
         .coin:active {
-            transform: scale(0.95); /* Эффект нажатия */
+            transform: scale(0.9);
         }
     </style>
 </head>
@@ -47,16 +53,25 @@
     <div class="balance-label">Твой баланс:</div>
     <div class="balance-count" id="balance">24</div>
 
-    <img src="my-coing.png" class="coin" draggable="false">
+    <img src="https://cdn-icons-png.flaticon.com/512/5434/5434211.png" 
+         id="coinBtn" 
+         class="coin" 
+         alt="Coin" 
+         draggable="false">
 
     <script>
         let score = 24;
         const balanceElement = document.getElementById('balance');
+        const coinBtn = document.getElementById('coinBtn');
 
+        // Функция увеличения счета
         function addScore() {
             score++;
             balanceElement.innerText = score;
         }
+
+        // Привязываем функцию к клику по картинке
+        coinBtn.onclick = addScore;
     </script>
 
 </body>
