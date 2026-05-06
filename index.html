@@ -2,34 +2,78 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>IT Clicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Игра</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { background: #1a1a1a; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; }
-        .coin { width: 200px; cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
-        .coin:active { transform: scale(0.9); }
-        h1 { font-size: 48px; color: #f1c40f; margin: 10px 0; }
+        body {
+            user-select: none; /* Чтобы текст не выделялся при кликах */
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .coin {
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .coin:active {
+            transform: scale(0.9);
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #f1c401;
+            margin: 10px 0;
+        }
+
+        .label {
+            font-size: 20px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
 
-
-    <div style="font-size: 20px;">Твой баланс:</div>
+    <div class="label">Твой баланс:</div>
     <h1 id="balance">0</h1>
-    <img id="clickBtn" src="https://img.icons8.com/emoji/256/gold-coin-emoji.png" class="coin">
+    
+    <img id="clickBtn" 
+         src="https://img.icons8.com/emoji/256/gold-coin-emoji.png" 
+         class="coin" 
+         draggable="false">
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand();
+        tg.expand(); // Разворачиваем на весь экран
 
-        let score = 0;
+        // Загружаем данные из памяти телефона (если они есть)
+        let score = localStorage.getItem('my_game_score') ? parseInt(localStorage.getItem('my_game_score')) : 0;
+        
         const btn = document.getElementById('clickBtn');
         const bal = document.getElementById('balance');
+
+        // Выводим сохраненный баланс при запуске
+        bal.innerText = score;
 
         btn.onclick = () => {
             score++;
             bal.innerText = score;
+
+            // Сохраняем новый баланс в память
+            localStorage.setItem('my_game_score', score);
+
+            // Добавляем вибрацию при клике
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
