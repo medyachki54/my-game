@@ -3,14 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Игра</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            user-select: none; /* Чтобы текст не выделялся при кликах */
-            background-color: #000;
-            color: #fff;
-            text-align: center;
+            background-color: black;
+            color: white;
             font-family: sans-serif;
             display: flex;
             flex-direction: column;
@@ -18,67 +14,50 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+            -webkit-user-select: none; /* Чтобы нельзя было выделить текст при кликах */
+        }
+
+        .balance-label {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .balance-count {
+            font-size: 64px;
+            font-weight: bold;
+            color: #FFD700; /* Золотистый цвет для цифр */
+            margin-bottom: 30px;
         }
 
         .coin {
             width: 200px;
+            height: 200px;
             cursor: pointer;
-            transition: transform 0.1s ease;
-            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.1s active;
         }
 
         .coin:active {
-            transform: scale(0.9);
-        }
-
-        h1 {
-            font-size: 48px;
-            color: #f1c401;
-            margin: 10px 0;
-        }
-
-        .label {
-            font-size: 20px;
-            opacity: 0.8;
+            transform: scale(0.95); /* Эффект нажатия */
         }
     </style>
 </head>
 <body>
 
-    <div class="label">Твой баланс:</div>
-    <h1 id="balance">0</h1>
-    
-    <img src="путь/к/монетке.png" class="coin" draggable="false" alt="coin">
+    <div class="balance-label">Твой баланс:</div>
+    <div class="balance-count" id="balance">24</div>
 
-
-         class="coin" 
-         draggable="false">
+    <img src="путь_к_картинке.png" class="coin" draggable="false">
 
     <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем на весь экран
+        let score = 24;
+        const balanceElement = document.getElementById('balance');
 
-        // Загружаем данные из памяти телефона (если они есть)
-        let score = localStorage.getItem('my_game_score') ? parseInt(localStorage.getItem('my_game_score')) : 0;
-        
-        const btn = document.getElementById('clickBtn');
-        const bal = document.getElementById('balance');
-
-        // Выводим сохраненный баланс при запуске
-        bal.innerText = score;
-
-        btn.onclick = () => {
+        function addScore() {
             score++;
-            bal.innerText = score;
-
-            // Сохраняем новый баланс в память
-            localStorage.setItem('my_game_score', score);
-
-            // Добавляем вибрацию при клике
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('medium');
-            }
-        };
+            balanceElement.innerText = score;
+        }
     </script>
+
 </body>
 </html>
