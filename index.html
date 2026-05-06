@@ -16,7 +16,6 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            /* Запрет выделения текста для удобства кликов */
             user-select: none;
             -webkit-user-select: none;
         }
@@ -29,7 +28,7 @@
         .balance-count {
             font-size: 64px;
             font-weight: bold;
-            color: #FFD700; /* Золотистый цвет */
+            color: #FFD700;
             margin-bottom: 30px;
         }
 
@@ -38,11 +37,9 @@
             height: 200px;
             cursor: pointer;
             transition: transform 0.05s;
-            /* Чтобы картинка не перетаскивалась мышкой */
             -webkit-user-drag: none;
         }
 
-        /* Эффект нажатия */
         .coin:active {
             transform: scale(0.9);
         }
@@ -53,10 +50,10 @@
     <div class="balance-label">Твой баланс:</div>
     <div class="balance-count" id="balance">24</div>
 
-    <img src="https://cdn-icons-png.flaticon.com/512/5434/5434211.png" 
+    <img src="https://image.spreadshirtmedia.net/image-server/v1/compositions/T210A2PA4301PT17X51Y48D174116035W2498H2498/views/1,width=650,height=650,appearanceId=2,backgroundColor=000000/dollar-sign-icon-mens-t-shirt.jpg" 
          id="coinBtn" 
          class="coin" 
-         alt="Coin" 
+         alt="Dollar Logo" 
          draggable="false">
 
     <script>
@@ -64,13 +61,11 @@
         const balanceElement = document.getElementById('balance');
         const coinBtn = document.getElementById('coinBtn');
 
-        // Функция увеличения счета
         function addScore() {
             score++;
             balanceElement.innerText = score;
         }
 
-        // Привязываем функцию к клику по картинке
         coinBtn.onclick = addScore;
     </script>
 
